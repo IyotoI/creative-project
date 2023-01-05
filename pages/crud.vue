@@ -14,7 +14,14 @@
           :items-per-page="-1"
           hide-default-footer
           class="elevation-1"
-        ></v-data-table>
+        >
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="selectItem(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+          </template>
+        </v-data-table>
       </div>
     </v-col>
   </v-row>
@@ -36,17 +43,15 @@ export default {
           { text: "Correo", value: "email" },
           { text: "Pais", value: "country" },
           { text: "Confirmacion de pais", value: "isTraveler" },
+          { text: "Acciones", value: "actions" },
         ],
         items: [],
       },
     };
   },
   methods: {
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
+    selectItem(item) {
+      $nuxt.$emit("selectItem", item);
     },
   },
   created() {

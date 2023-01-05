@@ -31,7 +31,7 @@
     ></v-checkbox>
 
     <v-btn :disabled="!isFormValid" color="success" class="mr-4" type="submit">
-      Validate
+      Guardar
     </v-btn>
   </v-form>
 </template>
@@ -71,6 +71,11 @@ export default {
       $nuxt.$emit("itemTable", payload);
       this.payload = {};
     },
+  },
+  created() {
+    $nuxt.$on("selectItem", (val) => {
+      this.payload = val;
+    });
   },
 };
 </script>
