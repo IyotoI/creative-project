@@ -30,8 +30,11 @@
       required
     ></v-checkbox>
 
-    <v-btn :disabled="!isFormValid" color="success" class="mr-4" type="submit">
+    <v-btn v-if="!payload.id" :disabled="!isFormValid" color="success" class="mr-4" type="submit">
       Guardar
+    </v-btn>
+    <v-btn v-if="payload.id" :disabled="!isFormValid" color="success" class="mr-4" @click="update">
+      Actualizar
     </v-btn>
   </v-form>
 </template>
@@ -70,7 +73,15 @@ export default {
     sendForm(payload) {
       $nuxt.$emit("itemTable", payload);
       this.payload = {};
+      this.$refs.form.reset()
     },
+    update() {
+      if (this.payload.id) {
+        $nuxt.$emit("itemUpdate", this.payload);
+        this.payload = {};
+        this.$refs.form.reset()
+      }
+    }
   },
   created() {
     $nuxt.$on("selectItem", (val) => {

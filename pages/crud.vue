@@ -75,6 +75,24 @@ export default {
         this.table.items.push(val);
       }
     });
+    $nuxt.$on("itemUpdate", (val) => {
+      this.table.items.forEach((element) => {
+        if (element.id === val.id) {
+          element.id = val.id;
+          element.name = val.name;
+          element.email = val.email;
+          element.country = val.country;
+          element.isTraveler = val.isTraveler;
+        }
+      });
+      // this.table.items.id = val.id
+      // this.table.items.name = val.name
+      // this.table.items.email = val.email
+      // this.table.items.country = val.country
+      // this.table.items.isTraveler = val.isTraveler
+      // console.log(val);
+      // console.log(this.table.items);
+    });
   },
 };
 </script>
