@@ -61,8 +61,19 @@ export default {
       } else {
         this.key = 0;
       }
-      val.id = this.table.items.length + 1;
-      this.table.items.push(val);
+      if (val.id) {
+        // console.log("🚀 ~ file: crud.vue:65 ~ $nuxt.$on ~ val.id", val.id);
+        const id = val.id;
+        this.table.items.filter((item) => {
+          if (item.id === id) {
+            console.log(item);
+            // item = val;
+          }
+        });
+      } else {
+        val.id = this.table.items.length + 1;
+        this.table.items.push(val);
+      }
     });
   },
 };

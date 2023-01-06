@@ -74,7 +74,8 @@ export default {
   },
   created() {
     $nuxt.$on("selectItem", (val) => {
-      this.payload = val;
+      const data = val;
+      this.payload = { ...data };
     });
   },
 };
