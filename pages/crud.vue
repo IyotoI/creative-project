@@ -53,6 +53,11 @@ export default {
     selectItem(item) {
       $nuxt.$emit("selectItem", item);
     },
+    deleteItem(item) {
+      if (item.id) {
+        this.table.items.splice(item, 1);
+      }
+    },
     refreshComponent() {
       if (this.key === 0) {
         this.key = 1;
@@ -77,6 +82,7 @@ export default {
       this.table.items.forEach((element) => {
         if (element.id === val.id) {
           element = val;
+          console.log("🚀 ~ file: crud.vue:85 ~ this.table.items.forEach ~ element", element)
         }
       });
     });
