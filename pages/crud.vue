@@ -19,7 +19,7 @@
             <v-icon small class="mr-2" @click="selectItem(item)">
               mdi-pencil
             </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <v-icon small @click="deleteItem(item.id)"> mdi-delete </v-icon>
           </template>
         </v-data-table>
       </div>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -53,10 +54,9 @@ export default {
     selectItem(item) {
       $nuxt.$emit("selectItem", item);
     },
-    deleteItem(item) {
-      if (item.id) {
-        this.table.items.splice(item, 1);
-      }
+    deleteItem(val) {
+    let delet = val -1
+    this.table.items.splice(delet, 1)
     },
     refreshComponent() {
       if (this.key === 0) {
@@ -81,8 +81,7 @@ export default {
 
       this.table.items.forEach((element) => {
         if (element.id === val.id) {
-          element = val;
-          console.log("🚀 ~ file: crud.vue:85 ~ this.table.items.forEach ~ element", element)
+          Object.assign(element, val)
         }
       });
     });
