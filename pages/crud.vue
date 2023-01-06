@@ -53,45 +53,32 @@ export default {
     selectItem(item) {
       $nuxt.$emit("selectItem", item);
     },
-  },
-  created() {
-    $nuxt.$on("itemTable", (val) => {
+    refreshComponent() {
       if (this.key === 0) {
         this.key = 1;
       } else {
         this.key = 0;
       }
-      if (val.id) {
-        // console.log("🚀 ~ file: crud.vue:65 ~ $nuxt.$on ~ val.id", val.id);
-        const id = val.id;
-        this.table.items.filter((item) => {
-          if (item.id === id) {
-            console.log(item);
-            // item = val;
-          }
-        });
-      } else {
-        val.id = this.table.items.length + 1;
-        this.table.items.push(val);
-      }
+    },
+  },
+  created() {
+    /* Guardar registro */
+    $nuxt.$on("itemTable", (val) => {
+      this.refreshComponent();
+
+      val.id = this.table.items.length + 1;
+      this.table.items.push(val);
     });
+
+    /* Actualizar registro*/
     $nuxt.$on("itemUpdate", (val) => {
+      this.refreshComponent();
+
       this.table.items.forEach((element) => {
         if (element.id === val.id) {
-          element.id = val.id;
-          element.name = val.name;
-          element.email = val.email;
-          element.country = val.country;
-          element.isTraveler = val.isTraveler;
+          element = val;
         }
       });
-      // this.table.items.id = val.id
-      // this.table.items.name = val.name
-      // this.table.items.email = val.email
-      // this.table.items.country = val.country
-      // this.table.items.isTraveler = val.isTraveler
-      // console.log(val);
-      // console.log(this.table.items);
     });
   },
 };
