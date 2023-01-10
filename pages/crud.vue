@@ -54,10 +54,11 @@ export default {
       $nuxt.$emit("selectItem", item);
     },
     deleteItem(val) {
-      let ok = confirm("Confirmar para eliminar");
-      if (ok === true) {
-          const index = this.table.items.findIndex(element => element.id === val)
-          this.table.items.splice(index, 1);
+      if (confirm("Confirmar para eliminar")) {
+        const index = this.table.items.findIndex(
+          (element) => element.id === val
+        );
+        this.table.items.splice(index, 1);
       }
     },
     refreshComponent() {
