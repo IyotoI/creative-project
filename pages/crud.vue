@@ -55,17 +55,14 @@ export default {
     postCrud: CrudController.post.crud,
     getCrud: CrudController.get.crud,
     putCrud: CrudController.put.crud,
+    deleteCrud: CrudController.delete.crud,
 
     selectItem(item) {
       $nuxt.$emit("selectItem", item);
     },
-    deleteItem(val) {
-      if (confirm("Confirmar para eliminar")) {
-        const index = this.table.items.findIndex(
-          (element) => element.id === val
-        );
-        this.table.items.splice(index, 1);
-      }
+    deleteItem(id) {
+      this.deleteCrud(id);
+      this.getData();
     },
     refreshComponent() {
       if (this.key === 0) {

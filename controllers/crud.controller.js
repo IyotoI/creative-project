@@ -18,6 +18,8 @@ export const CrudController = {
         key: "data",
         value: dataClone,
       });
+
+      alert("Registro creado");
     },
   },
   put: {
@@ -36,11 +38,24 @@ export const CrudController = {
         key: "data",
         value: res,
       });
+
+      alert("Registro actualizado");
     },
   },
   delete: {
-    crud: () => {
-      console.log("delete crud");
+    crud: (id) => {
+      const { data } = $nuxt.$store.state.localStorage;
+
+      if (confirm("Desea eliminar el registro")) {
+        const res = data.filter((val) => val.id !== id);
+
+        $nuxt.$store.dispatch("localStorage/actUpdateValue", {
+          key: "data",
+          value: res,
+        });
+
+        alert("Registro eliminado");
+      }
     },
   },
 };
