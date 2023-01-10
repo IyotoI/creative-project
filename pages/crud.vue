@@ -28,7 +28,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -55,8 +54,11 @@ export default {
       $nuxt.$emit("selectItem", item);
     },
     deleteItem(val) {
-    let delet = val -1
-    this.table.items.splice(delet, 1)
+      let ok = confirm("Confirmar para eliminar");
+      if (ok === true) {
+        let delet = val - 1;
+        this.table.items.splice(delet, 1);
+      }
     },
     refreshComponent() {
       if (this.key === 0) {
@@ -81,7 +83,7 @@ export default {
 
       this.table.items.forEach((element) => {
         if (element.id === val.id) {
-          Object.assign(element, val)
+          Object.assign(element, val);
         }
       });
     });
