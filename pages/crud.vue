@@ -56,8 +56,8 @@ export default {
     deleteItem(val) {
       let ok = confirm("Confirmar para eliminar");
       if (ok === true) {
-        let delet = val - 1;
-        this.table.items.splice(delet, 1);
+          const index = this.table.items.findIndex(element => element.id === val)
+          this.table.items.splice(index, 1);
       }
     },
     refreshComponent() {
