@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { CrudController } from "~/controllers/crud.controller";
+
 export default {
   data() {
     return {
@@ -50,6 +52,9 @@ export default {
     };
   },
   methods: {
+    postCrud: CrudController.post.crud,
+    getCrud: CrudController.get.crud,
+
     selectItem(item) {
       $nuxt.$emit("selectItem", item);
     },
@@ -68,14 +73,19 @@ export default {
         this.key = 0;
       }
     },
+    getData() {
+      this.table.items = this.getCrud();
+    },
   },
   created() {
+    this.getData();
+
     /* Guardar registro */
     $nuxt.$on("itemTable", (val) => {
       this.refreshComponent();
-
-      val.id = this.table.items.length + 1;
-      this.table.items.push(val);
+      this.postCrud(val);
+      this.table.items = [];
+      this.getData();
     });
 
     /* Actualizar registro*/
