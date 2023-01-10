@@ -21,8 +21,21 @@ export const CrudController = {
     },
   },
   put: {
-    crud: () => {
-      console.log("put crud");
+    crud: (payload) => {
+      const { data } = $nuxt.$store.state.localStorage;
+
+      const res = data.map((val) => {
+        if (val.id === payload.id) {
+          val = payload;
+        }
+
+        return val;
+      });
+
+      $nuxt.$store.dispatch("localStorage/actUpdateValue", {
+        key: "data",
+        value: res,
+      });
     },
   },
   delete: {

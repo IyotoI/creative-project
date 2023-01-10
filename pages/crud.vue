@@ -54,6 +54,7 @@ export default {
   methods: {
     postCrud: CrudController.post.crud,
     getCrud: CrudController.get.crud,
+    putCrud: CrudController.put.crud,
 
     selectItem(item) {
       $nuxt.$emit("selectItem", item);
@@ -91,12 +92,8 @@ export default {
     /* Actualizar registro*/
     $nuxt.$on("itemUpdate", (val) => {
       this.refreshComponent();
-
-      this.table.items.forEach((element) => {
-        if (element.id === val.id) {
-          Object.assign(element, val);
-        }
-      });
+      this.putCrud(val);
+      this.getData();
     });
   },
 };
